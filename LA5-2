@@ -1,0 +1,43 @@
+
+# Install ggplot2 if not already installed
+install.packages("ggplot2")
+
+# Load the ggplot2 library
+library(ggplot2)
+
+data("midwest", package = "ggplot2")
+View(midwest)
+
+# Example: Create a scatter plot using the midwest dataset
+ggplot(data = midwest) + 
+  geom_point(mapping = aes(x = percollege, y = percadultpoverty))
+
+# Create a bar chart of the total population of each state
+ggplot(data = midwest) + 
+  geom_col(mapping = aes(x = state, y = poptotal))
+
+# Create a hexagonal aggregation of college education rate and adult poverty
+ggplot(data = midwest) + 
+  geom_hex(mapping = aes(x = percollege, y = percadultpoverty))
+
+# Create a scatter plot with a smoothed line
+ggplot(data = midwest) + 
+  geom_point(mapping = aes(x = percollege, y = percadultpoverty)) + 
+  geom_smooth(mapping = aes(x = percollege, y = percadultpoverty))
+
+# Use shared aesthetic mappings to avoid redundancy
+ggplot(data = midwest, mapping = aes(x = percollege, y = percadultpoverty)) + 
+  geom_point() +  # Uses default x and y mappings
+  geom_smooth() + # Uses default x and y mappings
+  geom_point(mapping = aes(y = percchildbelowpovert)) # Unique y mapping
+
+# Mapping data to color by state
+ggplot(data = midwest) + 
+  geom_point(mapping = aes(x = percollege, y = percadultpoverty, color = state))
+
+# Setting a constant red color and transparency for all points
+ggplot(data = midwest) + 
+  geom_point(mapping = aes(x = percollege, y = percadultpoverty), 
+             color = "red", 
+             alpha = 0.3)
+
